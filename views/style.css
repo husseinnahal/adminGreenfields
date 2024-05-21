@@ -1,0 +1,42 @@
+header{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 85%;
+  position: relative;
+  left: 95px;
+  padding: 30px 5px;
+  color: #F9ECD0;
+  
+  .title{
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: #fff1d6fb;
+  cursor: pointer;
+  .maintitle{
+    font-weight: 100;
+    cursor: pointer;
+  font-size: 34px;
+  }
+  }
+  
+      ul{
+      li{
+      display: inline-block;
+    padding: 0 40px;
+      font-size: 25px;
+      a{
+  
+      text-decoration: none;
+      transition: 0.5s;
+  color: #F9ECD0;
+  cursor: pointer;
+      }
+    }
+    a:hover{
+      text-decoration-line:underline ;
+  }
+  }
+  }
