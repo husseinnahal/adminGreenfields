@@ -1,6 +1,7 @@
 <?php
 include ('../include/db.php');
- include ('../include/postproducts.php')
+ include ('../include/postproducts.php');
+
  ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -38,9 +39,9 @@ include ('../include/db.php');
      border-radius: 30px;
      padding: 13px;
  color: #F9ECD0;
-  
-     }
  
+     }
+
      .send{
          background:#002204;
          color: #F9ECD0;
@@ -76,22 +77,27 @@ include ('../include/db.php');
 
 <h1>Post a product</h1>
 
-<form   action="postproducts.php" method="Post" class="inputs">
+<form   action="postproducts.php" method="Post" class="inputs"  enctype="multipart/form-data">
 
 <label for="name">Product name</label>
- <input type="text" id="name" name="name" placeholder="Enter your product name "  class="information"  value="<?php echo $productname?>" autocomplete="false">
+ <input type="text" id="name" name="name" placeholder="Enter your product name "  class="information"  value="<?php echo $productName?>" autocomplete="false">
  
 <label for="desc">Description</label>
- <textarea type="text" id="desc" name="description" placeholder="Enter a description of your product"  class="information"  value="<?php echo $description?>" autocomplete="off"></textarea>
+ <input type="text"  id="desc" name="description" placeholder="Enter a description of your product"  class="information"  value="<?php echo $description?>" autocomplete="off">
  
 <label for="price">Price</label>
  <input type="number" id="price" name="price" placeholder="Set the price"  class="information"  value="<?php echo $price?>" autocomplete="off">
  
 <label for="img">Image</label>
-<input type="file" id="img" name="image" class="information"  value="<?php echo $image?>" autocomplete="off">
+<input type="file" id="image" name="image" class="information"   autocomplete="off">
 
 <label for="cat">Catergory</label>
-<input type="number" id="cat" name="cat" placeholder="enter id "  class="information"  value="<?php echo $cat?>" autocomplete="off">
+<select id="cat" name="cat"  class="information" value="<?php echo $cat?>" >
+
+<?php foreach($getcat as $gett):?>
+    <option style=" background:#002204;color: #F9ECD0;font-size: 17px;" value="<?php echo $gett['id'] ?>"><?php echo $gett['name'] ?></option>
+    <?php endforeach?> 
+</select>
 
 <p class="error"> <?php echo $error ?></p>
 

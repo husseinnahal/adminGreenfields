@@ -107,7 +107,6 @@ include ('../include/db.php');
  <div class="errors">
      <p class="succ"> <?php echo $succ ?></p>
      <p class="error"> <?php echo $error ?></p>
-     <!-- <p>don't have an account?<a href="register.php">Singup</a></p> -->
  </div>
  
  

@@ -36,7 +36,9 @@ if (mysqli_query($conn,$query)) {
     
     if (mysqli_num_rows($result)==0) {
        $error="Sorry, you are not the admin";
-    }else{header("location: dashbord.php");}
+    }else{
+        header("location: dashbord.php");
+    }
  
 }
 }

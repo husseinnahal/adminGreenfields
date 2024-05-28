@@ -1,25 +1,28 @@
 <?php
 include ('../include/db.php');
- include ('../include/postcat.php')
- ?>
+$id = (int)$_GET['id'] ;
+
+
+
+$values="SELECT `name`, `image` FROM `categories` WHERE id=$id";
+$result=mysqli_query($conn,$values);
+$get= mysqli_fetch_assoc($result);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>post</title>
-<link rel="stylesheet" href="style.css">
-
-<style>
- 
- body{
-     background:#57704f;
+    <title>edit</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+body{
+    background:#57704f;
  color: #F9ECD0;
  margin:0px;
- }
- 
- 
- h1{
+}
+h1{
      text-align: center;
      font-size: 42px;}
  
@@ -64,31 +67,31 @@ include ('../include/db.php');
      }
  
  }
- 
- 
- 
- 
- </style>
 
+
+ </style>
 </head>
 <body>
 <?php  require("header.php")  ?>
 
-<h1>Post a category</h1>
+<div>
+<h1>Update category</h1>
 
-<form   action="category.php" method="Post" class="inputs" enctype="multipart/form-data">
+<form   action="../include/editcat.php" method="Post" class="inputs" enctype="multipart/form-data">
+    
+    <?php echo '<input type="hidden" value="' . $id . '" name="id">';?>
 
-<label for="name">categrory name</label>
- <input type="text" id="name" name="name" placeholder="Enter your product name "  class="information"  value="<?php echo $catname?>" autocomplete="off">
- 
+<label for="name">category name</label>
+ <input type="text" id="name" name="name" placeholder="Enter your product name "  class="information"  value="<?php echo $get['name']?>" autocomplete="off">    
 <label for="img">Image</label>
-<input type="file" id="img" name="image" class="information"  value="<?php echo $image?>" autocomplete="off">
+<input type="file" id="img" name="image" class="information"  value="<?php echo $get['image']?>" autocomplete="off">
+<button class="send">Update</button>
 
-<p class="error"> <?php echo $error ?></p>
 
-<input type="submit" name="submit" class="send" value="send"/> 
 </form>
 
+
+</div>
 
 </body>
 </html>

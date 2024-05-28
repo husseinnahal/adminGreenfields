@@ -1,35 +1,51 @@
 <?php
-include ('db.php');
+include('db.php');
 
+$productName = "";
+$description = "";
+$price = "";
+$image = "";
+$cat = "";
+$error = "";
 
-
-$productname=  "";
-$description=  ""; 
-$price=  ""; 
-$image=  ""; 
-$cat=  ""; 
-
-$error=  ""; 
-
-
-if(isset($_POST['submit'])){ 
-    $productname=    $_POST['name'];
-    $description=   $_POST['description']; 
-    $price=   $_POST['price']; 
-    $image=   $_POST['image']; 
-    $cat=   $_POST['cat']; 
-
+if (isset($_POST['submit'])) {
+    $productName = $_POST['name'];
+    $description = $_POST['description'];
+    $price = $_POST['price'];
+    $cat = $_POST['cat'];
     
-    if(empty($productname) || empty($description) || empty($price) || empty($image) || empty($cat)   ){
-   $error="All fields are required";
+    if (empty($productName) || empty($description) || empty($price) || empty($cat) || empty($_FILES['image']['name'])) {
+        $error = "All fields are required";
+    } 
+    else {
+        // File upload handling
+            $path = "../img/";
+            $targetFile = $path . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
 
+            // Check if file is an actual image
+            $check = getimagesize($_FILES["image"]["tmp_name"]);
+            if ($check !== false) {
+                if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+                    $image = $targetFile;
+                    
+                    // Prepare an SQL statement
+                    $stmt = $conn->prepare("INSERT INTO products (name, description, price, image, category_id) VALUES (?, ?, ?, ?, ?)");
+                    $stmt->bind_param("ssisi", $productName, $description, $price, $image, $cat);
+                    
+                    if ($stmt->execute()) {
+                        header("location: dashbord.php");
+                    }                 
+                    $stmt->close();
+                } 
+            } 
+        } 
     }
-else{
- $sql="INSERT INTO products(name,description,price,image,category_id) VALUES ('$productname','$description','$price','$image','$cat')";
-mysqli_query($conn,$sql);
-header("location: dashbord.php");
-}
-}
 
 
+    $cat='SELECT * FROM categories';
+    $result=mysqli_query($conn,$cat);
+    $getcat=mysqli_fetch_all($result,MYSQLI_ASSOC);
+    
+    
 ?>
